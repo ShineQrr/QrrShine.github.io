@@ -644,7 +644,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    602
+                    995
                 </div>
                 
 
@@ -656,75 +656,88 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Module语法"><a href="#Module语法" class="headerlink" title="Module语法"></a>Module语法</h2><h3 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h3><p>在ES6之前，社区制定了一些模块加载方案，用于解决JavaScript一直没有模块（module）体系导致的复杂问题。其中，最主要的有CommonJS和AMD两种。前者用于服务器，后者用于浏览器。本文就对CommonJS的模块规范做一些简要整理。</p>
-<p>无论是 CommonJS、AMD、CMD、UMD、EcmaScript 6 Modules 官方规范</p>
-<ul>
-<li>都是为了解决 JavaScript 的模块化问题</li>
-<li>CommonJS、AMD、CMD 都是民间搞出来的</li>
-<li>EcmaScript 是官方规范定义</li>
-<li>官方看民间都在乱搞，开发人员为了在不同的环境使用不同的 JavaScript 模块化解决方案</li>
-<li>所以 EcmaScript 在 2015 年发布了 EcmaScript 2016 官方标准</li>
-<li>其中就包含了官方对 JavaScript 模块化的支持</li>
-<li>也就是说语言天生就支持了</li>
-<li>但是虽然标准已经发布了，但是很多 JavaScript 运行环境还不支持</li>
-<li>Node 也是只在 8.5 版本之后才对 EcmaScript 6 module 进行了支持</li>
-<li>EcmaScript 6 -&gt; 编译器 -&gt; EcmaScript 5</li>
-<li>目前的前端情况都是使用很多新技术，然后利用编译器工具打包可以在低版本浏览器运行。</li>
-<li>使用新技术的目的就是为了提高效率，增加可维护性</li>
-<li></li>
-</ul>
-<h3 id="一、加载require"><a href="#一、加载require" class="headerlink" title="一、加载require"></a>一、加载<code>require</code></h3><p>语法：</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> 自定义变量名称 <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'模块'</span><span class="token punctuation">)</span></code></pre>
-<p>两个作用：</p>
-<ul>
-<li><p>执行被加载模块中的代码</p>
-</li>
-<li><p>得到被加载模块中的<code>exports</code>导出接口对象</p>
-</li>
-</ul>
-<h3 id="二、导出exports"><a href="#二、导出exports" class="headerlink" title="二、导出exports"></a>二、导出<code>exports</code></h3><ul>
-<li>Node中是模块作用域，默认文件中所有的成员只在当前文件模块有效</li>
-<li>对于希望可以被其他模块访问的成员，我们就需要把这些公开的成员都挂载到<code>exports</code>接口对象中就可以了</li>
-</ul>
-<p>导出多个成员（必须在对象中）：</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">// 1、用exports.key = value</span>
-exports<span class="token punctuation">.</span>a <span class="token operator">=</span> <span class="token number">123</span>
-exports<span class="token punctuation">.</span>b <span class="token operator">=</span> <span class="token string">'hello'</span>
-exports<span class="token punctuation">.</span>c <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Node.js'</span><span class="token punctuation">)</span>
+                <h2 id="Module语法"><a href="#Module语法" class="headerlink" title="Module语法"></a>Module语法</h2><h3 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h3><p>过去，JS很难编写大型应用，因为有以下两个问题：</p>
+<ol>
+<li><strong>全局变量污染</strong></li>
+<li><strong>难以管理的依赖关系</strong></li>
+</ol>
+<p>这些问题，都导致了JS无法进行精细的模块划分，因为精细的模块划分会导致更多的全局污染以及更加复杂的依赖关系。</p>
+<p>在ES6之前，无论是 CommonJS、AMD、CMD、UMD 等规范，都是为了解决 JavaScript 的模块化问题。但通俗地讲，CommonJS、AMD、CMD 都是民间的，而ECMAScript 是官方规范定义。为了解决JavaScript 模块化问题， ECMAScript 官方在 2015 年发布了 ECMAScript 2016 官方标准，其中就包含了官方对 JavaScript 模块化的支持。ES6 在语言规格的层面上实现了模块功能，而且实现得相当简单，完全可以取代现有的CommonJS和AMD方案，成为浏览器和服务器通用的模块化解决方案。</p>
+<h3 id="三、导出export"><a href="#三、导出export" class="headerlink" title="三、导出export"></a>三、导出<code>export</code></h3><p><code>export</code>命令用于规定模块的对外接口。</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">1</span> <span class="token comment" spellcheck="true">//基本导出 a = 1</span>
+<span class="token keyword">export</span> <span class="token keyword">var</span> b <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//基本导出 b = function(){}</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">method</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>  <span class="token comment" spellcheck="true">//基本导出 method = function(){}</span>
+<span class="token keyword">var</span> c <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token punctuation">{</span>c<span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//基本导出 c = 3</span>
+<span class="token keyword">export</span> <span class="token punctuation">{</span> c <span class="token keyword">as</span> temp <span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//基本导出 temp = 3</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token number">3</span> <span class="token comment" spellcheck="true">//默认导出 default = 3</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//默认导出 default = function(){}</span>
+<span class="token keyword">export</span> <span class="token punctuation">{</span> c <span class="token keyword">as</span> <span class="token keyword">default</span> <span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//默认导出 default = 3</span>
+
+<span class="token keyword">export</span> <span class="token punctuation">{</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c <span class="token keyword">as</span> <span class="token keyword">default</span><span class="token punctuation">}</span> <span class="token comment" spellcheck="true">//基本导出 a=1, b=function(){}, 默认导出 default = 3</span></code></pre>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">// 1、使用export xx = xxx，必须与模块内部的变量建立一一对应关系</span>
+<span class="token keyword">export</span> <span class="token keyword">var</span> firstName <span class="token operator">=</span> <span class="token string">'Qrr'</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">var</span> lastName <span class="token operator">=</span> <span class="token string">'Shen'</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">multiply</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">return</span> x <span class="token operator">*</span> y<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 
-<span class="token comment" spellcheck="true">// 2、用module.exports ={}</span>
-module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
-    add<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
-    str<span class="token punctuation">:</span><span class="token string">'hello'</span>
-<span class="token punctuation">}</span>  </code></pre>
-<p>导出单个成员（拿到的直接是：函数、字符串）：</p>
-<pre class=" language-javascript"><code class="language-javascript">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token string">'hello'</span>
 
-<span class="token comment" spellcheck="true">// 注意不能用exports = xxx，此时exports指向一个新的地址，失去对module.exports的引用</span>
-<span class="token comment" spellcheck="true">// 而最终return module.exports</span></code></pre>
-<p>以下情况会覆盖：</p>
-<pre class=" language-javascript"><code class="language-javascript">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token string">'hello'</span>
+<span class="token comment" spellcheck="true">// 2、使用export {}, 优先考虑这种写法</span>
+<span class="token keyword">export</span> <span class="token punctuation">{</span> firstName<span class="token punctuation">,</span> lastName <span class="token punctuation">}</span>
+<span class="token keyword">export</span> <span class="token punctuation">{</span> firstName <span class="token keyword">as</span> nickName <span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token punctuation">}</span>
+<span class="token keyword">export</span> <span class="token punctuation">{</span> fn <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-<span class="token comment" spellcheck="true">// 后者会覆盖前者</span>
-module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">return</span> x <span class="token operator">+</span> y
-<span class="token punctuation">}</span></code></pre>
-<h3 id="三、原理解析"><a href="#三、原理解析" class="headerlink" title="三、原理解析"></a>三、原理解析</h3><p>exports是module.exports的一个引用</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">// var module ={</span>
-<span class="token comment" spellcheck="true">//      exports={}</span>
-<span class="token comment" spellcheck="true">// }</span>
-<span class="token comment" spellcheck="true">// var exports = module.exports</span>
+<span class="token comment" spellcheck="true">// 3、使用export default,</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'foo'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>exports <span class="token operator">===</span> module<span class="token punctuation">.</span>exports<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// => true</span>
+<span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'foo'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> foo<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//加载时foo函数的函数名foo在模块外部是无效的，加载时视同匿名函数</span>
 
-exports<span class="token punctuation">.</span>foo <span class="token operator">=</span> <span class="token string">'bar'</span>
 
+<span class="token comment" spellcheck="true">// 4、比较普通输出和默认输出</span>
+<span class="token comment" spellcheck="true">// 普通输出</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">f1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token punctuation">}</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> f1 <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'modules'</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//默认输出</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">f1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token punctuation">}</span>
+<span class="token keyword">import</span> f1 <span class="token keyword">from</span> <span class="token string">'modules'</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//一个模块只能有一个默认输出</span></code></pre>
+<p>本质上，export default 就输出一个叫做default的变量或方法，然后系统允许我们为它取任意名字。因此可以得到：</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">add</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">return</span> x <span class="token operator">*</span> y<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">export</span> <span class="token punctuation">{</span> add <span class="token keyword">as</span> <span class="token keyword">default</span><span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//等同于 export default add;</span>
+
+
+<span class="token keyword">import</span> <span class="token punctuation">{</span> <span class="token keyword">default</span> <span class="token keyword">as</span> xxx <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'modules'</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//等同于 import xxx from 'modules';</span></code></pre>
+<p>export default的本质是将该命令后面的值赋给default变量以后再默认，因此注意后面不能跟声明变量语句</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//错误</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token number">42</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 正确</span></code></pre>
+<h3 id="四、导入import"><a href="#四、导入import" class="headerlink" title="四、导入import"></a>四、导入<code>import</code></h3><p>使用<code>export</code>命令定义了模块的对外接口后，其他 JS 文件就能通过 <code>import</code> 命令加载这个模块了。</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span>a<span class="token punctuation">,</span>b<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"模块路径"</span>   <span class="token comment" spellcheck="true">//导入属性 a、b，放到变量a、b中</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span>a <span class="token keyword">as</span> temp1<span class="token punctuation">,</span> b <span class="token keyword">as</span> temp2<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"模块路径"</span> <span class="token comment" spellcheck="true">//导入属性a、b，放到变量temp1、temp2 中</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token keyword">default</span> <span class="token keyword">as</span> a<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"模块路径"</span> <span class="token comment" spellcheck="true">//导入属性default，放入变量a中，default是关键字，不能作为变量名，必须定义别名</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span><span class="token keyword">default</span> <span class="token keyword">as</span> a<span class="token punctuation">,</span> b<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"模块路径"</span> <span class="token comment" spellcheck="true">//导入属性default、b，放入变量a、b中</span>
+<span class="token keyword">import</span> c <span class="token keyword">from</span> <span class="token string">"模块路径"</span>  <span class="token comment" spellcheck="true">//相当于 import {default as c} from "模块路径"</span>
+<span class="token keyword">import</span> c<span class="token punctuation">,</span> <span class="token punctuation">{</span>a<span class="token punctuation">,</span>b<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"模块路径"</span> <span class="token comment" spellcheck="true">//相当于 import {default as c, a, b} from "模块路径"</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> obj <span class="token keyword">from</span> <span class="token string">"模块路径"</span> <span class="token comment" spellcheck="true">//将模块对象放入到变量obj中</span>
+<span class="token keyword">import</span> <span class="token string">"模块路径"</span> <span class="token comment" spellcheck="true">//不导入任何内容，仅执行一次模块</span></code></pre>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> firstName<span class="token punctuation">,</span> lastName <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./exportFile'</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> circle <span class="token keyword">from</span> <span class="token string">'./circle'</span>
 <span class="token comment" spellcheck="true">// 等价于</span>
-module<span class="token punctuation">.</span>exports<span class="token punctuation">.</span>foo <span class="token operator">=</span> <span class="token string">'bar'</span>
-
-<span class="token comment" spellcheck="true">//return module.exports</span></code></pre>
+</code></pre>
+<p>如果多次重复执行同义句import语句，只会执行一次。</p>
+<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token string">'loadash'</span>
+<span class="token keyword">import</span> <span class="token string">'loadash'</span> <span class="token comment" spellcheck="true">//这一次import不会执行</span></code></pre>
+<p>导入模块时，注意以下细节</p>
+<p>1). ES6 module 采用依赖预加载模式，所有模块导入代码均会提升到代码顶部<br>2). 不能将导入代码放置到判断、循环中<br>3). 导入的内容放置到<strong>常量</strong>中，不可更改<br>4). ES6 module 使用了缓存，保证每个模块仅加载一次</p>
 
             </div>
             <hr/>
@@ -835,54 +848,37 @@ module<span class="token punctuation">.</span>exports<span class="token punctuat
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/07/19/ES6/Module%E8%AF%AD%E6%B3%95/">
+                <a href="/2020/07/20/JavaScript/GET%E5%92%8CPOST%E7%9A%84%E5%8C%BA%E5%88%AB/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="Module语法">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="JavaScript/GET和POST的区别">
                         
-                        <span class="card-title">Module语法</span>
+                        <span class="card-title">JavaScript/GET和POST的区别</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            这是你自定义的文章摘要内容。
+                            GET和POST的区别GET和POST本质上就是TCP链接，并无差别。但是由于HTTP的规定和浏览器/服务器的限制，导致他们在应用过程中体现出一些不同。
+服务器对GET和POST请求处理的差异SB
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-19
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-20
+                        </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E5%89%8D%E7%AB%AF/" class="post-category">
-                                    前端
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            清儿阿
                             
                         </span>
                     </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/JavaScript/">
-                        <span class="chip bg-color">JavaScript</span>
-                    </a>
-                    
-                    <a href="/tags/ES6/">
-                        <span class="chip bg-color">ES6</span>
-                    </a>
-                    
                 </div>
                 
             </div>
